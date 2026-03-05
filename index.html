@@ -1,47 +1,140 @@
-<!-- Copyright (C) 2023-2025 anonymous
-
-This file is part of PSFree.
-
-PSFree is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-PSFree is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
--->
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <title>PSFree-Lapse Exploit For PS4 9.00</title>
-        <style>
-            @font-face {
-                font-family: 'logging';
-                src: url('fonts/LiberationMono-Regular.ttf');
-            }
-            #console {
-                font-family: 'logging';
-            }
-        </style>
-        <script>
-        if (window.applicationCache.status=='0')
-        {
-          window.location.replace("cache.html");
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset='utf-8'>
+    <title>بليغ ستور 2 | PSFree 9.00</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --main-blue: #00adef;
+            --dark-bg: #050a14;
+            --terminal-bg: rgba(0, 0, 0, 0.9);
         }
-        </script>
-    </head>
-    <body>
-        PSFree: A PS4/PS5 Exploit Chain
-        <br>
-        <br>
-        See <a href='./about.html' data-jslicense='1'>JavaScript license information</a> for the
-        source code and license.<br>
-        <pre id='console'></pre>
-    </body>
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #0a1a35 0%, var(--dark-bg) 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            /* الاتجاه من اليسار لليمن بناءً على طلبك */
+            direction: ltr; 
+        }
+
+        /* تصميم الشعار (هوية المحل) */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-text {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px var(--main-blue), 0 0 20px var(--main-blue);
+            letter-spacing: 2px;
+        }
+
+        .store-sub {
+            font-size: 1.2rem;
+            color: var(--main-blue);
+            margin-top: -10px;
+            font-weight: 700;
+        }
+
+        /* تصغير وتنسيق مربع الديبق (الكونسول) ليكون متناسقاً */
+        .terminal-box {
+            width: 50%; /* تصغير العرض للمنتصف */
+            max-width: 550px;
+            height: 220px; /* تقليل الارتفاع */
+            background: var(--terminal-bg);
+            border: 1px solid var(--main-blue);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(0, 173, 239, 0.15);
+            position: relative;
+        }
+
+        /* الخط التقني داخل الكونسول */
+        @font-face {
+            font-family: 'logging';
+            src: url('fonts/LiberationMono-Regular.ttf');
+        }
+
+        #console {
+            font-family: 'logging', monospace;
+            color: #00ff00; /* لون أخضر تقني */
+            font-size: 13px;
+            margin: 0;
+            height: 100%;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            line-height: 1.6;
+        }
+
+        /* تذييل الصفحة بتنسيق هادئ */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer b {
+            color: var(--main-blue);
+        }
+
+        .links-area {
+            margin-top: 15px;
+            font-size: 11px;
+        }
+
+        .links-area a {
+            color: #666;
+            text-decoration: none;
+        }
+    </style>
+
+    <script>
+    if (window.applicationCache.status=='0')
+    {
+      window.location.replace("cache.html");
+    }
+    </script>
+</head>
+<body>
+
+    <div class="logo-container">
+        <h1 class="logo-text">بليغ ستور 2</h1>
+        <div class="store-sub">PSFree-Lapse Exploit Chain</div>
+    </div>
+
+    <div class="terminal-box">
+        <pre id='console'>[+] Waiting for system...&#10;[+] Initializing Baligh Store 2 Host...</pre>
+    </div>
+
+    <div class="links-area">
+        See <a href='./about.html' data-jslicense='1'>JavaScript license information</a>
+    </div>
+
+    <div class="footer">
+        بليغ ستور - اليمن - صنعاء | المهندس <b>AlawiM7</b>
+    </div>
+
     <script type='module' src='./alert.mjs'></script>
+</body>
 </html>
