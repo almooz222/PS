@@ -28,31 +28,73 @@
             direction: ltr; 
         }
 
-        /* تصميم الشعار المبرمج */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 25px;
+        /* --- تصميم الشعار بالـ CSS (دقيق ومضمون) --- */
+        .brand-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 5px;
         }
 
-        .logo-text {
-            font-size: 4rem;
+        /* أيقونة BS */
+        .bs-icon {
+            position: relative;
+            font-size: 4.5rem;
             font-weight: 900;
-            margin: 10px 0 0 0;
+            color: var(--main-blue);
+            text-shadow: 0 0 15px rgba(0, 173, 239, 0.6);
+            line-height: 1;
+            font-family: sans-serif;
+            letter-spacing: -5px;
+        }
+
+        /* زر التشغيل الصغير داخل حرف B */
+        .play-btn {
+            position: absolute;
+            bottom: 8px;
+            left: 2px;
+            font-size: 1rem;
             color: #fff;
-            text-shadow: 0 0 10px var(--main-blue), 0 0 20px var(--main-blue);
-            letter-spacing: 2px;
+            text-shadow: none;
+            letter-spacing: 0;
+        }
+
+        /* نصوص الشعار */
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: right;
+            direction: rtl; /* لضبط النص العربي مع الانجليزي */
+        }
+
+        .logo-arabic {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px var(--main-blue);
+            line-height: 1.1;
+        }
+
+        .logo-english {
+            font-size: 1.3rem;
+            color: var(--main-blue);
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+            line-height: 1;
         }
 
         .store-sub {
-            font-size: 1.2rem;
-            color: var(--main-blue);
-            margin-top: -10px;
-            font-weight: 700;
+            font-size: 1rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
         }
 
+        /* --- مربع الديبق --- */
         .terminal-box {
             width: 50%;
             max-width: 550px;
@@ -86,34 +128,36 @@
         .links-area {
             margin-top: 15px;
             font-size: 11px;
-            opacity: 0.8;
+            z-index: 10;
         }
 
         .links-area a {
-            color: var(--main-blue);
+            color: #888;
             text-decoration: none;
-            border-bottom: 1px dotted var(--main-blue);
         }
 
+        /* --- تذييل الصفحة (الفوتر) المنسق --- */
         .footer {
             position: absolute;
             bottom: 20px;
             width: 100%;
-            text-align: center;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            opacity: 0.9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            direction: rtl;
         }
 
         .footer-address {
-            color: #ddd;
+            font-size: 0.9rem;
+            color: #ccc;
         }
 
         .footer-designer {
+            font-size: 1.05rem;
             color: var(--main-blue);
             font-weight: 900;
-            font-size: 1.05rem;
-            text-shadow: 0 0 5px rgba(0, 173, 239, 0.5);
+            text-shadow: 0 0 5px rgba(0, 173, 239, 0.4);
         }
     </style>
 
@@ -126,25 +170,17 @@
 </head>
 <body>
 
-    <div class="logo-container">
-        <svg width="150" height="75" viewBox="0 0 150 75" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="neonGlow2">
-                    <feGaussianBlur stdDeviation="3.5" result="blur" />
-                    <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-            <path d="M 20 15 L 50 15 C 65 15 70 25 60 35 C 75 40 75 60 50 65 L 20 65" fill="none" stroke="#00adef" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow2)"/>
-            <polygon points="30,40 30,60 45,50" fill="#fff" filter="url(#neonGlow2)"/>
-            <path d="M 130 15 C 110 15 100 25 110 40 C 125 50 125 60 105 65 L 80 65" fill="none" stroke="#00adef" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow2)"/>
-        </svg>
-
-        <h1 class="logo-text">بليغ ستور 2</h1>
-        <div class="store-sub">PSFree-Lapse Exploit Chain</div>
+    <div class="brand-container">
+        <div class="brand-text">
+            <h1 class="logo-arabic">بليغ ستور 2</h1>
+            <h2 class="logo-english">Baligh Store</h2>
+        </div>
+        <div class="bs-icon">
+            B<span style="letter-spacing: 0;">S</span>
+            <span class="play-btn">▶</span>
+        </div>
     </div>
+    <div class="store-sub">PSFree-Lapse Exploit Chain</div>
 
     <div class="terminal-box">
         <pre id='console'>[+] Waiting for system...&#10;[+] Initializing Baligh Store 2 Host...</pre>
