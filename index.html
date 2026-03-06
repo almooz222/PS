@@ -25,44 +25,47 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            /* الاتجاه من اليسار لليمن بناءً على طلبك */
             direction: ltr; 
         }
 
-        /* --- إدراج الشعار الأصلي (الصورة التي أرسلتها) --- */
+        /* تصميم الشعار (هوية المحل) */
         .logo-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        .main-logo {
-            width: 320px; /* يمكنك تعديل حجم الشعار من هنا */
-            max-width: 90%;
-            /* هذا الفلتر يقلب لون الشعار الأسود إلى أبيض ليظهر بوضوح على الخلفية الغامقة مع إضاءة زرقاء */
-            filter: invert(1) drop-shadow(0 0 10px var(--main-blue));
+        .logo-text {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px var(--main-blue), 0 0 20px var(--main-blue);
+            letter-spacing: 2px;
         }
 
         .store-sub {
             font-size: 1.2rem;
             color: var(--main-blue);
-            margin-top: 5px;
+            margin-top: -10px;
             font-weight: 700;
-            letter-spacing: 2px;
         }
 
-        /* --- مربع الكونسول (الديبق) --- */
+        /* تصغير وتنسيق مربع الديبق (الكونسول) ليكون متناسقاً */
         .terminal-box {
-            width: 50%;
+            width: 50%; /* تصغير العرض للمنتصف */
             max-width: 550px;
-            height: 220px;
+            height: 220px; /* تقليل الارتفاع */
             background: var(--terminal-bg);
             border: 1px solid var(--main-blue);
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 0 30px rgba(0, 173, 239, 0.15);
             position: relative;
-            z-index: 10;
         }
 
+        /* الخط التقني داخل الكونسول */
         @font-face {
             font-family: 'logging';
             src: url('fonts/LiberationMono-Regular.ttf');
@@ -70,7 +73,7 @@
 
         #console {
             font-family: 'logging', monospace;
-            color: #00ff00;
+            color: #00ff00; /* لون أخضر تقني */
             font-size: 13px;
             margin: 0;
             height: 100%;
@@ -81,46 +84,28 @@
             line-height: 1.6;
         }
 
-        /* --- الحل لمشكلة التداخل (إخفاء الروابط والمربعات البيضاء) --- */
-        
-        /* 1. إخفاء نص الجافاسكربت ليسنس تماماً */
-        .links-area {
-            display: none !important; 
-        }
-
-        /* 2. إخفاء مربعات الإدخال التي تولدها الثغرة "بصرياً فقط" لكي لا تخرب شكل الصفحة وتستمر الثغرة بالعمل */
-        input {
-            opacity: 0 !important;
-            position: absolute !important;
-            z-index: -100 !important;
-            bottom: 0 !important;
-            pointer-events: none;
-        }
-
-        /* --- تذييل الصفحة (الفوتر) ليكون واضحاً وبارزاً --- */
+        /* تذييل الصفحة بتنسيق هادئ */
         .footer {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            direction: rtl; /* لضبط النص العربي */
-            z-index: 10;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
 
-        .footer-address {
-            font-size: 1.1rem;
-            color: #ffffff;
-            text-shadow: 0 0 3px #000;
-        }
-
-        .footer-designer {
-            font-size: 1.2rem;
+        .footer b {
             color: var(--main-blue);
-            font-weight: 900;
-            text-shadow: 0 0 8px rgba(0, 173, 239, 0.5);
+        }
+
+        .links-area {
+            margin-top: 15px;
+            font-size: 11px;
+        }
+
+        .links-area a {
+            color: #666;
+            text-decoration: none;
         }
     </style>
 
@@ -134,7 +119,7 @@
 <body>
 
     <div class="logo-container">
-        <img src="Baligh Store 2 Logo 2.png" alt="Baligh Store 2" class="main-logo">
+        <h1 class="logo-text">بليغ ستور 2</h1>
         <div class="store-sub">PSFree-Lapse Exploit Chain</div>
     </div>
 
@@ -147,13 +132,14 @@
     </div>
 
     <div class="footer">
-        <div class="footer-address">
+    <div class="footer-address">
             بليغ ستور | صنعاء - الخمسين - بيت بوس - خلف كافتيريا ركن الأحلام - جوار سوبر ماركت الصخرة
         </div>
         <div class="footer-designer">
             تصميم المهندس علوي محمد الحبيشي (770047367)
         </div>
     </div>
+
 
     <script type='module' src='./alert.mjs'></script>
 </body>
