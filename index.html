@@ -1,145 +1,441 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بليغ ستور 2 | PSFree 9.00</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --main-blue: #00adef;
-            --dark-bg: #050a14;
-            --terminal-bg: rgba(0, 0, 0, 0.9);
+            --blue: #00adef;
+            --blue-dim: rgba(0, 173, 239, 0.15);
+            --blue-glow: rgba(0, 173, 239, 0.6);
+            --dark: #050a14;
+            --darker: #02060e;
+            --green: #00ff88;
+            --white: #e8f4ff;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at center, #0a1a35 0%, var(--dark-bg) 100%);
-            color: #fff;
-            margin: 0;
-            padding: 0;
+            background-color: var(--darker);
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(0,100,180,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,173,239,0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(0,50,120,0.1) 0%, transparent 60%);
+            color: var(--white);
             font-family: 'Cairo', sans-serif;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             overflow: hidden;
-            /* الاتجاه من اليسار لليمن بناءً على طلبك */
-            direction: ltr; 
-        }
-
-        /* تصميم الشعار (هوية المحل) */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-text {
-            font-size: 4rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin: 0;
-            color: #fff;
-            text-shadow: 0 0 10px var(--main-blue), 0 0 20px var(--main-blue);
-            letter-spacing: 2px;
-        }
-
-        .store-sub {
-            font-size: 1.2rem;
-            color: var(--main-blue);
-            margin-top: -10px;
-            font-weight: 700;
-        }
-
-        /* تصغير وتنسيق مربع الديبق (الكونسول) ليكون متناسقاً */
-        .terminal-box {
-            width: 50%; /* تصغير العرض للمنتصف */
-            max-width: 550px;
-            height: 220px; /* تقليل الارتفاع */
-            background: var(--terminal-bg);
-            border: 1px solid var(--main-blue);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 0 30px rgba(0, 173, 239, 0.15);
             position: relative;
         }
 
-        /* الخط التقني داخل الكونسول */
+        /* شبكة خلفية */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,173,239,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,173,239,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* جسيمات متحركة */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--blue);
+            border-radius: 50%;
+            animation: float linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+            padding: 20px;
+            animation: fadeIn 1s ease both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ======= الشعار بالكود (CSS + SVG) ======= */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            animation: fadeIn 0.8s ease 0.2s both;
+            direction: ltr;
+        }
+
+        /* الأيقونة BS */
+        .logo-icon {
+            position: relative;
+            width: 115px;
+            height: 100px;
+            flex-shrink: 0;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 6px 20px rgba(0,0,0,0.8)) drop-shadow(0 0 12px rgba(0,173,239,0.25));
+        }
+
+        /* نص الشعار */
+        .logo-text-group {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-arabic {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0,173,239,0.4);
+            letter-spacing: -0.5px;
+            direction: rtl;
+        }
+
+        .logo-arabic span {
+            color: var(--blue);
+        }
+
+        .logo-english {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 3px;
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        /* خط فاصل */
+        .logo-divider {
+            width: 2px;
+            height: 70px;
+            background: linear-gradient(to bottom, transparent, var(--blue), transparent);
+            opacity: 0.5;
+        }
+
+        /* بطاقة الاستغلال */
+        .exploit-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--blue-dim);
+            border: 1px solid rgba(0,173,239,0.3);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: 1px;
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .exploit-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* صندوق الطرفية */
+        .terminal-box {
+            width: 100%;
+            max-width: 560px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(0,173,239,0.25);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow:
+                0 0 40px rgba(0,173,239,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            animation: fadeIn 0.8s ease 0.6s both;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(0,173,239,0.06);
+            border-bottom: 1px solid rgba(0,173,239,0.15);
+        }
+
+        .terminal-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red    { background: #ff5f57; }
+        .terminal-dot.yellow { background: #febc2e; }
+        .terminal-dot.green  { background: #28c840; }
+
+        .terminal-title {
+            margin-right: auto;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
         @font-face {
             font-family: 'logging';
             src: url('fonts/LiberationMono-Regular.ttf');
         }
 
         #console {
-            font-family: 'logging', monospace;
-            color: #00ff00; /* لون أخضر تقني */
-            font-size: 13px;
+            font-family: 'logging', 'Courier New', monospace;
+            color: #00ff88;
+            font-size: 12.5px;
+            padding: 16px 18px;
             margin: 0;
-            height: 100%;
+            min-height: 180px;
+            max-height: 220px;
             overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
             text-align: left;
-            line-height: 1.6;
+            line-height: 1.7;
+            direction: ltr;
         }
 
-        /* تذييل الصفحة بتنسيق هادئ */
+        #console::-webkit-scrollbar { width: 4px; }
+        #console::-webkit-scrollbar-track { background: transparent; }
+        #console::-webkit-scrollbar-thumb { background: rgba(0,173,239,0.3); border-radius: 2px; }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: var(--green);
+            vertical-align: middle;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* تذييل */
         .footer {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
             text-align: center;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.3);
+            line-height: 1.8;
+            animation: fadeIn 0.8s ease 0.9s both;
         }
 
-        .footer b {
-            color: var(--main-blue);
-        }
-
-        .links-area {
-            margin-top: 15px;
-            font-size: 11px;
-        }
-
-        .links-area a {
-            color: #666;
+        .footer a {
+            color: rgba(0,173,239,0.5);
             text-decoration: none;
+            transition: color 0.2s;
         }
+
+        .footer a:hover { color: var(--blue); }
+
+        .footer-address {
+            direction: rtl;
+            margin-bottom: 4px;
+        }
+
+        /* نبض في الحافة */
+        @keyframes borderGlow {
+            0%, 100% { box-shadow: 0 0 40px rgba(0,173,239,0.08), inset 0 1px 0 rgba(255,255,255,0.05); }
+            50%       { box-shadow: 0 0 60px rgba(0,173,239,0.15), inset 0 1px 0 rgba(255,255,255,0.05); }
+        }
+
+        .terminal-box { animation: fadeIn 0.8s ease 0.6s both, borderGlow 4s ease-in-out infinite; }
     </style>
 
     <script>
-    if (window.applicationCache.status=='0')
-    {
-      window.location.replace("cache.html");
-    }
+        // إصلاح: applicationCache مهجور، نستخدم طريقة آمنة
+        try {
+            if (window.applicationCache && window.applicationCache.status === 0) {
+                window.location.replace("cache.html");
+            }
+        } catch(e) {
+            // applicationCache غير مدعوم، نتجاهل
+        }
     </script>
 </head>
 <body>
 
-    <div class="logo-container">
-        <h1 class="logo-text">بليغ ستور 2</h1>
-        <div class="store-sub">PSFree-Lapse Exploit Chain</div>
-    </div>
+    <!-- جسيمات خلفية -->
+    <div class="particles" id="particles"></div>
 
-    <div class="terminal-box">
-        <pre id='console'>[+] Waiting for system...&#10;[+] Initializing Baligh Store 2 Host...</pre>
-    </div>
+    <div class="main-content">
 
-    <div class="links-area">
-        See <a href='./about.html' data-jslicense='1'>JavaScript license information</a>
-    </div>
+        <!-- الشعار بالكود CSS+SVG بدون صورة -->
+        <div class="logo-wrapper">
+            <div class="logo-icon">
+                <!-- شعار BS مصمم بـ SVG - نمط ثلاثي الأبعاد -->
+                <svg viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- تدرج رئيسي لامع -->
+                        <linearGradient id="gMain" x1="0%" y1="0%" x2="30%" y2="100%">
+                            <stop offset="0%"   stop-color="#ffffff" stop-opacity="1"/>
+                            <stop offset="30%"  stop-color="#cccccc" stop-opacity="1"/>
+                            <stop offset="65%"  stop-color="#555555" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#111111" stop-opacity="1"/>
+                        </linearGradient>
+                        <!-- تدرج جانبي 3D -->
+                        <linearGradient id="gSide" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"  stop-color="#222" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="#000" stop-opacity="1"/>
+                        </linearGradient>
+                        <!-- تدرج تمييز -->
+                        <linearGradient id="gHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.9"/>
+                            <stop offset="40%"  stop-color="#aaaaaa" stop-opacity="0.6"/>
+                            <stop offset="100%" stop-color="#333333" stop-opacity="0.8"/>
+                        </linearGradient>
+                        <!-- تدرج زر التشغيل -->
+                        <linearGradient id="gPlay" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%"   stop-color="#00adef"/>
+                            <stop offset="100%" stop-color="#0055aa"/>
+                        </linearGradient>
+                        <!-- ظل داخلي -->
+                        <filter id="f3d">
+                            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.8"/>
+                        </filter>
+                        <filter id="fInner">
+                            <feDropShadow dx="-1" dy="-1" stdDeviation="1" flood-color="#fff" flood-opacity="0.3"/>
+                        </filter>
+                    </defs>
 
-    <div class="footer">
-    <div class="footer-address">
-            بليغ ستور | صنعاء - الخمسين - بيت بوس - خلف كافتيريا ركن الأحلام - جوار سوبر ماركت الصخرة
+                    <!-- ===== حرف B ===== -->
+                    <!-- الظل / الجانب 3D -->
+                    <path d="M8 14 L8 82 L36 82 Q56 82 56 67 Q56 56 45 52 Q53 48 53 37 Q53 14 34 14 Z
+                             M16 26 L33 26 Q43 26 43 36 Q43 45 33 45 L16 45 Z
+                             M16 54 L35 54 Q46 54 46 65 Q46 76 35 76 L16 76 Z"
+                          fill="#111" transform="translate(3,4)" filter="url(#f3d)"/>
+                    <!-- الوجه الرئيسي B -->
+                    <path d="M8 14 L8 82 L36 82 Q56 82 56 67 Q56 56 45 52 Q53 48 53 37 Q53 14 34 14 Z
+                             M16 26 L33 26 Q43 26 43 36 Q43 45 33 45 L16 45 Z
+                             M16 54 L35 54 Q46 54 46 65 Q46 76 35 76 L16 76 Z"
+                          fill="url(#gMain)" filter="url(#fInner)"/>
+                    <!-- بريق علوي B -->
+                    <path d="M10 14 L10 42 L52 36 Q53 25 34 14 Z" fill="url(#gHighlight)" opacity="0.25"/>
+
+                    <!-- ===== حرف S ===== -->
+                    <!-- الظل / الجانب 3D -->
+                    <path d="M68 17 Q68 10 82 10 Q98 10 98 23 Q98 34 84 39 L74 43 Q62 48 62 61 Q62 76 78 76 Q92 76 96 66"
+                          fill="none" stroke="#111" stroke-width="13" stroke-linecap="round"
+                          transform="translate(3,4)" filter="url(#f3d)"/>
+                    <!-- الوجه الرئيسي S -->
+                    <path d="M68 17 Q68 10 82 10 Q98 10 98 23 Q98 34 84 39 L74 43 Q62 48 62 61 Q62 76 78 76 Q92 76 96 66"
+                          fill="none" stroke="url(#gMain)" stroke-width="12" stroke-linecap="round"/>
+                    <!-- بريق S -->
+                    <path d="M68 17 Q68 10 82 10 Q98 10 98 23 Q96 30 86 35"
+                          fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="4" stroke-linecap="round"/>
+
+                    <!-- ===== زر التشغيل ===== -->
+                    <circle cx="18" cy="90" r="7.5" fill="url(#gPlay)" opacity="0.9"/>
+                    <circle cx="18" cy="90" r="7.5" fill="none" stroke="rgba(0,173,239,0.5)" stroke-width="1"/>
+                    <polygon points="16,87 16,93 22,90" fill="white" opacity="0.95"/>
+                </svg>
+            </div>
+
+            <div class="logo-divider"></div>
+
+            <div class="logo-text-group">
+                <div class="logo-arabic">بليغ ستور <span>2</span></div>
+                <div class="logo-english">Baligh Store</div>
+            </div>
         </div>
-        <div class="footer-designer">
-            تصميم المهندس علوي محمد الحبيشي (770047367)
+
+        <!-- بطاقة الإصدار -->
+        <div class="exploit-badge">
+            PSFree-Lapse Exploit Chain &nbsp;·&nbsp; PS4 FW 9.00
         </div>
+
+        <!-- صندوق الطرفية -->
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+                <div class="terminal-title">BALIGH STORE 2</div>
+            </div>
+            <pre id='console'>[+] Waiting for system...
+[+] Initializing Baligh Store 2 Host...<span class="cursor"></span></pre>
+        </div>
+
+        <!-- تذييل -->
+        <div class="footer">
+            <div class="footer-address">
+                🏪 بليغ ستور | صنعاء — الخمسين — بيت بوس — خلف كافتيريا ركن الأحلام — جوار سوبر ماركت الصخرة
+            </div>
+            <div>
+                تصميم المهندس علوي محمد الحبيشي (770047367) &nbsp;|&nbsp;
+                <a href='./about.html' data-jslicense='1'>JavaScript License</a>
+            </div>
+        </div>
+
     </div>
 
+    <script>
+        // إنشاء جسيمات متحركة
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 25; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                animation-duration: ${Math.random() * 15 + 10}s;
+                animation-delay: ${Math.random() * 10}s;
+                opacity: ${Math.random() * 0.5};
+            `;
+            container.appendChild(p);
+        }
+    </script>
 
     <script type='module' src='./alert.mjs'></script>
 </body>
