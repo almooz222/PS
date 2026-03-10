@@ -264,6 +264,34 @@
         .footer a { color: rgba(0,173,239,0.5); text-decoration: none; transition: color 0.2s; }
         .footer a:hover { color: var(--blue); }
         .footer-address { direction: rtl; margin-bottom: 3px; }
+
+        /* ============================================================
+           إخفاء العناصر التي يضيفها alert.mjs (iframes/divs مخفية)
+           نجعلها شفافة تماماً مع الحفاظ على وظيفتها كاملة
+        ============================================================ */
+        body > iframe {
+            opacity: 0 !important;
+            position: fixed !important;
+            bottom: -9999px !important;
+            left: -9999px !important;
+            width: 1px !important;
+            height: 1px !important;
+        }
+        body > div:not(.main-content):not(.particles) {
+            opacity: 0 !important;
+            position: fixed !important;
+            bottom: -9999px !important;
+            left: -9999px !important;
+            width: 1px !important;
+            height: 1px !important;
+        }
+        body > canvas,
+        body > object {
+            opacity: 0 !important;
+            position: fixed !important;
+            bottom: -9999px !important;
+            left: -9999px !important;
+        }
     </style>
 
     <script>
