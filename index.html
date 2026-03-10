@@ -17,6 +17,11 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
         body {
             background-color: var(--darker);
             background-image:
@@ -26,6 +31,7 @@
             color: var(--white);
             font-family: 'Cairo', sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -57,8 +63,7 @@
         }
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 2px; height: 2px;
             background: var(--blue);
             border-radius: 50%;
             animation: float linear infinite;
@@ -71,22 +76,26 @@
             100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
         }
 
-        /* المحتوى الرئيسي */
+        /* ============================================
+           المحتوى الرئيسي
+           - لا max-width ثابت
+           - العرض يتمدد مع الشاشة
+           - الأحجام تعتمد على clamp()
+        ============================================ */
         .main-content {
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 28px;
-            padding: 24px 20px;
+            gap: clamp(16px, 3vh, 36px);
+            padding: clamp(16px, 3vw, 40px);
             animation: fadeIn 1s ease both;
-            width: 100%;
-            max-width: 680px;
+            width: min(92vw, 820px);   /* يتمدد حتى 820px أو 92% من الشاشة */
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(24px); }
+            from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
 
@@ -94,37 +103,38 @@
         .logo-wrapper {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: clamp(14px, 2.5vw, 30px);
             direction: ltr;
             animation: fadeIn 0.8s ease 0.2s both;
         }
 
-        /* حاوية أيقونة BS */
         .logo-bs-icon {
             flex-shrink: 0;
+            /* الحجم يتكيف مع العرض */
+            width:  clamp(120px, 16vw, 200px);
+            height: clamp(80px,  11vw, 140px);
             filter:
-                drop-shadow(0px 6px 0px rgba(0,0,0,0.95))
-                drop-shadow(3px 8px 12px rgba(0,0,0,0.8))
-                drop-shadow(0 0 14px rgba(0,173,239,0.15));
+                drop-shadow(0px 5px 0px rgba(0,0,0,0.95))
+                drop-shadow(3px 8px 10px rgba(0,0,0,0.8))
+                drop-shadow(0 0 14px rgba(0,173,239,0.12));
         }
 
-        /* الخط الفاصل */
         .logo-divider {
             width: 2px;
-            height: 72px;
+            height: clamp(55px, 8vh, 90px);
             background: linear-gradient(to bottom, transparent, var(--blue), transparent);
             opacity: 0.55;
             flex-shrink: 0;
         }
 
-        /* النصوص */
         .logo-text-group {
             display: flex;
             flex-direction: column;
             line-height: 1.15;
         }
+
         .logo-arabic {
-            font-size: 2.3rem;
+            font-size: clamp(1.7rem, 4vw, 3rem);
             font-weight: 900;
             color: #fff;
             text-shadow: 0 0 24px rgba(0,173,239,0.45);
@@ -134,12 +144,12 @@
         .logo-arabic span { color: var(--blue); }
 
         .logo-english {
-            font-size: 1.05rem;
+            font-size: clamp(0.8rem, 1.4vw, 1.2rem);
             font-weight: 700;
             color: rgba(255,255,255,0.6);
-            letter-spacing: 3px;
+            letter-spacing: clamp(2px, 0.4vw, 4px);
             text-transform: uppercase;
-            margin-top: 5px;
+            margin-top: clamp(3px, 0.5vh, 8px);
             font-family: Georgia, serif;
             white-space: nowrap;
         }
@@ -152,8 +162,8 @@
             background: var(--blue-dim);
             border: 1px solid rgba(0,173,239,0.35);
             border-radius: 30px;
-            padding: 9px 22px;
-            font-size: 0.87rem;
+            padding: clamp(6px, 1vh, 11px) clamp(14px, 2.5vw, 26px);
+            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
             font-weight: 700;
             color: var(--blue);
             letter-spacing: 1px;
@@ -162,8 +172,7 @@
         }
         .exploit-badge::before {
             content: '';
-            width: 9px;
-            height: 9px;
+            width: 9px; height: 9px;
             background: var(--green);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--green);
@@ -193,7 +202,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 11px 16px;
+            padding: clamp(8px,1.2vh,13px) clamp(12px,1.8vw,18px);
             background: rgba(0,173,239,0.07);
             border-bottom: 1px solid rgba(0,173,239,0.16);
         }
@@ -204,7 +213,7 @@
 
         .terminal-title {
             margin-right: auto;
-            font-size: 0.75rem;
+            font-size: clamp(0.65rem, 1vw, 0.82rem);
             color: rgba(255,255,255,0.38);
             font-family: monospace;
             letter-spacing: 1.5px;
@@ -218,11 +227,11 @@
         #console {
             font-family: 'logging', 'Courier New', monospace;
             color: #00ff88;
-            font-size: 13px;
-            padding: 16px 18px;
+            font-size: clamp(11px, 1.3vw, 14px);
+            padding: clamp(12px,1.8vh,18px) clamp(14px,2vw,20px);
             margin: 0;
-            min-height: 175px;
-            max-height: 215px;
+            min-height: clamp(140px, 20vh, 220px);
+            max-height: clamp(180px, 26vh, 260px);
             overflow-y: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -236,8 +245,7 @@
 
         .cursor {
             display: inline-block;
-            width: 8px;
-            height: 14px;
+            width: 8px; height: 14px;
             background: var(--green);
             vertical-align: middle;
             animation: blink 1s step-end infinite;
@@ -248,7 +256,7 @@
         /* ============ تذييل ============ */
         .footer {
             text-align: center;
-            font-size: 0.78rem;
+            font-size: clamp(0.65rem, 1vw, 0.82rem);
             color: rgba(255,255,255,0.28);
             line-height: 1.9;
             animation: fadeIn 0.8s ease 0.9s both;
@@ -276,17 +284,14 @@
         <div class="logo-wrapper">
 
             <!--
-                شعار BS:
-                نستخدم SVG text مع خط Impact/Arial Black
-                لضمان شكل B و S صحيح 100%
-                مع تطبيق تدرج ثلاثي الأبعاد عليهم
+                SVG يستخدم viewBox متغير + preserveAspectRatio
+                الحجم الفعلي يتحكم فيه CSS عبر clamp()
             -->
             <svg class="logo-bs-icon"
                  viewBox="0 0 155 105"
-                 width="155" height="105"
+                 preserveAspectRatio="xMidYMid meet"
                  xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <!-- التدرج الرئيسي: أبيض لامع ← رمادي ← أسود (مثل الشعار الأصلي) -->
                     <linearGradient id="gBS" x1="0%" y1="0%" x2="15%" y2="100%">
                         <stop offset="0%"   stop-color="#ffffff"/>
                         <stop offset="22%"  stop-color="#e0e0e0"/>
@@ -294,86 +299,56 @@
                         <stop offset="78%"  stop-color="#2a2a2a"/>
                         <stop offset="100%" stop-color="#050505"/>
                     </linearGradient>
-
-                    <!-- بريق أبيض شفاف للجزء العلوي -->
                     <linearGradient id="gGloss" x1="0%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.45"/>
                         <stop offset="45%"  stop-color="#ffffff" stop-opacity="0.08"/>
                         <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
                     </linearGradient>
-
-                    <!-- تدرج زر التشغيل الأزرق -->
                     <linearGradient id="gPlay" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%"  stop-color="#00ccff"/>
                         <stop offset="100%" stop-color="#0044cc"/>
                     </linearGradient>
-
-                    <!-- ظل ثلاثي الأبعاد -->
                     <filter id="fShadow3d" x="-10%" y="-10%" width="130%" height="140%">
-                        <feDropShadow dx="0"   dy="1"  stdDeviation="0" flood-color="#888" flood-opacity="0.4"/>
-                        <feDropShadow dx="1"   dy="2"  stdDeviation="0" flood-color="#555" flood-opacity="0.5"/>
-                        <feDropShadow dx="2"   dy="4"  stdDeviation="1" flood-color="#222" flood-opacity="0.7"/>
-                        <feDropShadow dx="3"   dy="6"  stdDeviation="3" flood-color="#000" flood-opacity="0.9"/>
+                        <feDropShadow dx="1"  dy="2"  stdDeviation="0" flood-color="#666" flood-opacity="0.4"/>
+                        <feDropShadow dx="2"  dy="4"  stdDeviation="1" flood-color="#222" flood-opacity="0.7"/>
+                        <feDropShadow dx="4"  dy="7"  stdDeviation="4" flood-color="#000" flood-opacity="0.9"/>
                     </filter>
-
-                    <!-- توهج الزر -->
                     <filter id="fPlayGlow" x="-50%" y="-50%" width="200%" height="200%">
                         <feGaussianBlur stdDeviation="2.5" result="b"/>
                         <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                     </filter>
-
-                    <!-- مقص لحذف ما يخرج عن الحدود -->
                     <clipPath id="clipBS">
                         <rect x="0" y="0" width="155" height="105"/>
                     </clipPath>
                 </defs>
 
                 <g clip-path="url(#clipBS)">
-                    <!-- ======== طبقة الظل (نسخة مزاحة للخلف) ======== -->
-                    <text
-                        x="4" y="82"
-                        font-family="'Arial Black', 'Impact', 'Arial', sans-serif"
-                        font-weight="900"
-                        font-size="88"
-                        letter-spacing="-6"
-                        fill="#000000"
-                        opacity="0.7"
-                        filter="url(#fShadow3d)"
-                    >BS</text>
+                    <!-- ظل 3D -->
+                    <text x="6" y="83"
+                        font-family="'Arial Black', 'Impact', sans-serif"
+                        font-weight="900" font-size="86" letter-spacing="-5"
+                        fill="#000" opacity="0.75"
+                        filter="url(#fShadow3d)">BS</text>
 
-                    <!-- ======== الطبقة الرئيسية بالتدرج ======== -->
-                    <text
-                        x="2" y="80"
-                        font-family="'Arial Black', 'Impact', 'Arial', sans-serif"
-                        font-weight="900"
-                        font-size="88"
-                        letter-spacing="-6"
-                        fill="url(#gBS)"
-                    >BS</text>
+                    <!-- الطبقة الرئيسية -->
+                    <text x="2" y="80"
+                        font-family="'Arial Black', 'Impact', sans-serif"
+                        font-weight="900" font-size="86" letter-spacing="-5"
+                        fill="url(#gBS)">BS</text>
 
-                    <!-- ======== طبقة البريق الأبيض الشفاف ======== -->
-                    <text
-                        x="2" y="80"
-                        font-family="'Arial Black', 'Impact', 'Arial', sans-serif"
-                        font-weight="900"
-                        font-size="88"
-                        letter-spacing="-6"
-                        fill="url(#gGloss)"
-                        opacity="0.6"
-                    >BS</text>
+                    <!-- البريق -->
+                    <text x="2" y="80"
+                        font-family="'Arial Black', 'Impact', sans-serif"
+                        font-weight="900" font-size="86" letter-spacing="-5"
+                        fill="url(#gGloss)" opacity="0.55">BS</text>
 
-                    <!-- ======== زر التشغيل (أسفل يسار حرف B) ======== -->
-                    <circle cx="18" cy="95" r="8.5"
-                            fill="url(#gPlay)"
-                            filter="url(#fPlayGlow)"/>
-                    <circle cx="18" cy="95" r="8.5"
-                            fill="none"
-                            stroke="rgba(150,230,255,0.6)"
-                            stroke-width="1"/>
-                    <!-- مثلث التشغيل -->
-                    <polygon points="15.5,91.8 15.5,98.2 22.5,95"
-                             fill="white"
-                             opacity="0.95"/>
+                    <!-- زر التشغيل -->
+                    <circle cx="18" cy="96" r="8.5"
+                            fill="url(#gPlay)" filter="url(#fPlayGlow)"/>
+                    <circle cx="18" cy="96" r="8.5"
+                            fill="none" stroke="rgba(150,230,255,0.6)" stroke-width="1"/>
+                    <polygon points="15.5,92.8 15.5,99.2 22.5,96"
+                             fill="white" opacity="0.95"/>
                 </g>
             </svg>
 
@@ -416,7 +391,6 @@
     </div>
 
     <script>
-        // جسيمات متحركة
         const container = document.getElementById('particles');
         for (let i = 0; i < 30; i++) {
             const p = document.createElement('div');
